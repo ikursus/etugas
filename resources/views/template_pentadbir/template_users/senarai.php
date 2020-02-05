@@ -13,31 +13,45 @@
       
     <div class="container">
         
-<div class="row">
+<div class="row pt-4">
 
 <div class="col-12">
 
-<table class="table">
-        <thead>
+<div class="card">
+  <div class="card-header"><?php echo $page_title; ?></div>
+  <div class="card-body">
+  
+  <table class="table table-bordered table-hover">
+        <thead class="thead-light">
             <tr>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th>ID</th>
+                <th>NAMA</th>
+                <th>USERNAME</th>
+                <th>EMAIL</th>
+                <th>TINDAKAN</th>
             </tr>
         </thead>
         <tbody>
+            <?php foreach ($senarai_users as $user): ?>
             <tr>
-                <td scope="row"></td>
-                <td></td>
-                <td></td>
+                <td scope="row"><?php echo $user['id']; ?></td>
+                <td><?php echo $user['name']; ?></td>
+                <td><?php echo $user['username']; ?></td>
+                <td><?php echo $user['email']; ?></td>
+                <td>
+                    <a href="/pentadbir/users/<?php echo $user['id']; ?>/edit" class="btn btn-info">
+                        EDIT
+                    </a>
+                </td>
             </tr>
-            <tr>
-                <td scope="row"></td>
-                <td></td>
-                <td></td>
-            </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
+
+  </div>
+</div>
+
+
     
 </div><!-- /.col -->
 

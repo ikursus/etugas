@@ -35,9 +35,9 @@ Route::group(['prefix' => 'pentadbir'], function () {
 
         // Dapatkan data senarai users
         $senarai_users = [
-            ['id' => 1, 'name' => 'Ali', 'username', 'ali', 'email' => 'ali@gmail.com'],
-            ['id' => 2, 'name' => 'Abu', 'username', 'abu', 'email' => 'abu@gmail.com'],
-            ['id' => 3, 'name' => 'Ahmad', 'username', 'ahmad', 'email' => 'ahmad@gmail.com'],
+            ['id' => 1, 'name' => 'Ali', 'username' => 'ali', 'email' => 'ali@gmail.com'],
+            ['id' => 2, 'name' => 'Abu', 'username' => 'abu', 'email' => 'abu@gmail.com'],
+            ['id' => 3, 'name' => 'Ahmad', 'username' => 'ahmad', 'email' => 'ahmad@gmail.com'],
         ];
 
         $page_title = 'Senarai Users';
