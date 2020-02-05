@@ -34,13 +34,18 @@ Route::group(['prefix' => 'pentadbir'], function () {
     Route::get('users', function() {
 
         // Dapatkan data senarai users
-        $users = [
+        $senarai_users = [
             ['id' => 1, 'name' => 'Ali', 'username', 'ali', 'email' => 'ali@gmail.com'],
             ['id' => 2, 'name' => 'Abu', 'username', 'abu', 'email' => 'abu@gmail.com'],
             ['id' => 3, 'name' => 'Ahmad', 'username', 'ahmad', 'email' => 'ahmad@gmail.com'],
         ];
 
-        return view('template_pentadbir.template_users.senarai');
+        $page_title = 'Senarai Users';
+
+        // Beri respon paparkan template senarai.php dan attachkan variable $users
+        // return view('template_pentadbir.template_users.senarai', ['senarai_users' => $senarai_users, 'page_title' => $page_title]);
+        // return view('template_pentadbir.template_users.senarai')->with('senarai_users', $senarai_users)->with('page_title', $page_title);
+        return view('template_pentadbir.template_users.senarai', compact('senarai_users', 'page_title'));
     });
 
     Route::get('users/create', function() {
