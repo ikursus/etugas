@@ -24,6 +24,11 @@ Route::group(['prefix' => 'pengguna'], function () {
  *  
  */
 Route::group(['prefix' => 'pentadbir'], function () {
+
+    // Routing untuk root address /pentadbir
+    Route::get('/', function() {
+        return redirect('pentadbir/dashboard');
+    });
     
     // Routing untuk dashboard pentadbir
     Route::get('dashboard', function () {
@@ -45,7 +50,8 @@ Route::group(['prefix' => 'pentadbir'], function () {
         // Beri respon paparkan template senarai.php dan attachkan variable $users
         // return view('template_pentadbir.template_users.senarai', ['senarai_users' => $senarai_users, 'page_title' => $page_title]);
         // return view('template_pentadbir.template_users.senarai')->with('senarai_users', $senarai_users)->with('page_title', $page_title);
-        return view('template_pentadbir.template_users.senarai', compact('senarai_users', 'page_title'));
+        return view('template_pentadbir.template_users.senarai', 
+        compact('senarai_users', 'page_title'));
     });
 
     Route::get('users/create', function() {
