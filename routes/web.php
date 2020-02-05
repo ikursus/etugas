@@ -32,7 +32,15 @@ Route::group(['prefix' => 'pentadbir'], function () {
 
     // Routing pentadbir untuk pengurusan users (tambah,edit,delete)
     Route::get('users', function() {
-        return view('template_users.senarai');
+
+        // Dapatkan data senarai users
+        $users = [
+            ['id' => 1, 'name' => 'Ali', 'username', 'ali', 'email' => 'ali@gmail.com'],
+            ['id' => 2, 'name' => 'Abu', 'username', 'abu', 'email' => 'abu@gmail.com'],
+            ['id' => 3, 'name' => 'Ahmad', 'username', 'ahmad', 'email' => 'ahmad@gmail.com'],
+        ];
+
+        return view('template_pentadbir.template_users.senarai');
     });
 
     Route::get('users/create', function() {
