@@ -12,6 +12,12 @@
 <div class="card">
   <div class="card-header">{{ $page_title }}</div>
   <div class="card-body">
+
+    <p>
+        <a href="/pentadbir/users/create" class="btn btn-primary">
+            Tambah User
+        </a>
+    </p>
   
   <table class="table table-bordered table-hover">
         <thead class="thead-light">
