@@ -35,44 +35,13 @@ Route::group(['prefix' => 'pentadbir'], function () {
         return view('template_pentadbir.dashboard');
     });
 
-    // Routing pentadbir untuk pengurusan users (tambah,edit,delete)
-    Route::get('users', function() {
-
-        // Dapatkan data senarai users
-        $senarai_users = [
-            ['id' => 1, 'name' => 'Ali', 'username' => 'ali', 'email' => 'ali@gmail.com'],
-            ['id' => 2, 'name' => 'Abu', 'username' => 'abu', 'email' => 'abu@gmail.com'],
-            ['id' => 3, 'name' => 'Ahmad', 'username' => 'ahmad', 'email' => 'ahmad@gmail.com'],
-        ];
-
-        $page_title = 'Senarai Users';
-
-        // Beri respon paparkan template senarai.php dan attachkan variable $users
-        // return view('template_pentadbir.template_users.senarai', ['senarai_users' => $senarai_users, 'page_title' => $page_title]);
-        // return view('template_pentadbir.template_users.senarai')->with('senarai_users', $senarai_users)->with('page_title', $page_title);
-        return view('template_pentadbir.template_users.senarai', 
-        compact('senarai_users', 'page_title'));
-    });
-
-    Route::get('users/create', function() {
-        return 'Halaman borang tambah user';
-    });
-
-    Route::post('users/create', function() {
-        return 'Borang telah berjaya dihantar';
-    });
-
-    Route::get('users/{id}/edit', function($id) {
-        return 'Halaman borang edit user ' . $id;
-    });
-
-    Route::patch('users/{id}/edit', function($id) {
-        return 'Rekod berjaya dikemaskini ' . $id;
-    });
-
-    Route::delete('users/{id}', function($id) {
-        return 'Rekod berjaya dihapuskan ' . $id;
-    });
+    // Routing pentadbir untuk pengurusan users (senarai, tambah,edit,delete)
+    Route::get('users', 'UserController@index');
+    Route::get('users/create', 'UserController@create');
+    Route::post('users/create', 'UserController@store');
+    Route::get('users/{id}/edit', 'UserController@edit');
+    Route::patch('users/{id}/edit', 'UserController@update');
+    Route::delete('users/{id}', 'UserController@destroy');
 });
 
 
