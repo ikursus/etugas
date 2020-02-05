@@ -42,6 +42,7 @@ Route::group(['prefix' => 'pentadbir'], function () {
     Route::get('users/{id}/edit', 'UserController@edit');
     Route::patch('users/{id}/edit', 'UserController@update');
     Route::delete('users/{id}', 'UserController@destroy');
+    // Route::resource('UserController');
 });
 
 

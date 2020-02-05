@@ -27,7 +27,7 @@ class UserController extends Controller
 
     public function create()
     {
-        return 'Halaman borang tambah user';
+        return view('template_pentadbir.template_users.tambah');
     }
 
     public function store()
