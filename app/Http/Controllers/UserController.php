@@ -30,9 +30,9 @@ class UserController extends Controller
         return view('template_pentadbir.template_users.tambah');
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        return 'Borang telah berjaya dihantar';
+        return $request->all();
     }
 
     public function edit($id)
