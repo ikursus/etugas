@@ -8,6 +8,9 @@
                 <div class="card-header">{{ __('Daftar Pengguna') }}</div>
 
                 <div class="card-body">
+
+                    @include('layouts/alerts')
+
                     <form method="POST" action="">
                         @csrf
 

@@ -32,7 +32,16 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        return $request->all();
+        // Validasi data dari borang
+        $request->validate([
+            'name' => ['required', 'min:3'],
+            'email' => ['required', 'email'],
+            'nric' => ['required', 'regex:/^[0-9]{6}-[0-9]{2}-[0-9]{4}$/'],
+            'password' => 'required|min:4|confirmed'
+        ]);
+
+
+        return $request->except('name', 'email', 'nric');
     }
 
     public function edit($id)
