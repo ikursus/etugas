@@ -13,6 +13,8 @@
   <div class="card-header">{!! $page_title !!}</div>
   <div class="card-body">
 
+    @include('layouts.alerts')
+
     <p>
         <a href="/pentadbir/users/create" class="btn btn-primary">
             Tambah User

@@ -108,7 +108,7 @@ class UserController extends Controller
         DB::table('users')->where('id', '=', $id)->update($data);
 
         // Beri respon redirect ke halaman senarai users
-        return redirect('/pentadbir/users');
+        return redirect('/pentadbir/users')->with('mesej-sukses', 'Rekod telah berjaya dikemaskini!');
     }
 
     public function destroy($id)
@@ -117,6 +117,6 @@ class UserController extends Controller
         DB::table('users')->where('id', '=', $id)->delete();
 
         // Beri respon redirect ke halaman senarai users
-        return redirect('/pentadbir/users');
+        return redirect('/pentadbir/users')->with('mesej-sukses', 'Rekod telah berjaya dihapuskan!');
     }
 }
