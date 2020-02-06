@@ -19,6 +19,7 @@ class UserController extends Controller
         $senarai_users = DB::table('users')
         //->where('role', '=', 'pentadbir')
         //->get();
+        ->orderBy('id', 'desc')
         ->paginate(2);
 
         $page_title = '<h1>Senarai Users</h1>';
@@ -68,12 +69,45 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        return 'Halaman borang edit user ' . $id;
+        // Dapatkan data dari table users berdasarkan $id
+        $user = DB::table('users')->where('id', '=', $id)->first();
+
+        // Beri respon paparkan template edit user beserta rekod $user
+        return view('template_pentadbir.template_users.edit', compact('user'));
     }
 
-    public function update($id)
+    public function update(Request $request, $id)
     {
-        return 'Rekod berjaya dikemaskini ' . $id;
+        // Validasi data dari borang
+        $request->validate([
+            'name' => ['required', 'min:3'],
+            'email' => ['required', 'email'],
+            'nric' => ['required', 'regex:/^[0-9]{6}-[0-9]{2}-[0-9]{4}$/'],
+        ]);
+
+        // Dapatkan data daripada borang untuk simpan ke dalam table users
+        $data = $request->only([
+            'name', 
+            'nric',
+            'no_staf',
+            'email', 
+            'telefon',  
+            'penempatan_id', 
+            'jawatan', 
+            'role'
+        ]);
+        // Merge kan password yang di-encrypt ke dalam array $data
+        // jika password tidak kosong (iaitu diisi dengan password baru)
+        if (!empty($request->input('password')))
+        {
+            $data['password'] = bcrypt($request->input('password'));
+        }
+        
+        // Simpan $data ke dalam table users berdasarkan ID
+        DB::table('users')->where('id', '=', $id)->update($data);
+
+        // Beri respon redirect ke halaman senarai users
+        return redirect('/pentadbir/users');
     }
 
     public function destroy($id)
