@@ -85,12 +85,12 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="penempatan" class="col-md-4 col-form-label text-md-right">{{ __('Penempatan') }}</label>
+                            <label for="penempatan_id" class="col-md-4 col-form-label text-md-right">{{ __('Penempatan') }}</label>
 
                             <div class="col-md-6">
-                                <input id="penempatan" type="text" class="form-control @error('penempatan') is-invalid @enderror" name="penempatan" value="{{ old('penempatan') }}" required autocomplete="penempatan" autofocus>
+                                <input id="penempatan_id" type="text" class="form-control @error('penempatan_id') is-invalid @enderror" name="penempatan_id" value="{{ old('penempatan_id') }}" required autocomplete="penempatan_id" autofocus>
 
-                                @error('penempatan')
+                                @error('penempatan_id')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

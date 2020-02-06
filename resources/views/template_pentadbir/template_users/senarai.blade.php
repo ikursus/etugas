@@ -10,7 +10,7 @@
 <div class="col-12">
 
 <div class="card">
-  <div class="card-header">{{ $page_title }}</div>
+  <div class="card-header">{!! $page_title !!}</div>
   <div class="card-body">
 
     <p>
@@ -24,20 +24,24 @@
             <tr>
                 <th>ID</th>
                 <th>NAMA</th>
-                <th>USERNAME</th>
+                <th>NRIC</th>
                 <th>EMAIL</th>
+                <th>JAWATAN</th>
+                <th>PENEMPATAN</th>
                 <th>TINDAKAN</th>
             </tr>
         </thead>
         <tbody>
             @foreach($senarai_users as $user)
             <tr>
-                <td scope="row">{{ $user['id'] }}</td>
-                <td>{{ $user['name'] }}</td>
-                <td>{{ $user['username'] }}</td>
-                <td>{{ $user['email'] }}</td>
+                <td scope="row">{{ $user->id }}</td>
+                <td>{{ $user->name }}</td>
+                <td>{{ $user->nric }}</td>
+                <td>{{ $user->email }}</td>
+                <td>{{ $user->jawatan }}</td>
+                <td>{{ $user->penempatan_id }}</td>
                 <td>
-                    <a href="/pentadbir/users/{{ $user['id'] }}/edit" class="btn btn-info">
+                    <a href="/pentadbir/users/{{ $user->id }}/edit" class="btn btn-info">
                         EDIT
                     </a>
                 </td>
@@ -46,6 +50,9 @@
         </tbody>
     </table>
     {{-- Comment Dalam Blade --}}
+
+    {!! $senarai_users->links() !!}
+    {!! $senarai_users->render() !!}
 
   </div>
 </div>
