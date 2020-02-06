@@ -41,8 +41,9 @@ class UserController extends Controller
         // Validasi data dari borang
         $request->validate([
             'name' => ['required', 'min:3'],
-            'email' => ['required', 'email'],
-            'nric' => ['required', 'regex:/^[0-9]{6}-[0-9]{2}-[0-9]{4}$/'],
+            'no_staf' => ['required', 'unique:users,no_staf'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'nric' => ['required', 'regex:/^[0-9]{6}-[0-9]{2}-[0-9]{4}$/', 'unique:users,nric'],
             'password' => 'required|min:4|confirmed'
         ]);
 
@@ -112,6 +113,10 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        return 'Rekod berjaya dihapuskan ' . $id;
+        // Dapatkan rekod yang ingin dihapuskan dan hapuskan ia
+        DB::table('users')->where('id', '=', $id)->delete();
+
+        // Beri respon redirect ke halaman senarai users
+        return redirect('/pentadbir/users');
     }
 }
