@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('nric')->unique();
             $table->string('no_staf')->unique();
             $table->string('telefon')->nullable();
-            $table->text('penempatan')->nullable();
+            $table->text('penempatan_id')->nullable();
             $table->string('jawatan')->nullable();
             $table->string('role');
             $table->string('password');
