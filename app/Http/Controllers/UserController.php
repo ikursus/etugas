@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\User;
 
 class UserController extends Controller
 {
@@ -47,22 +48,24 @@ class UserController extends Controller
             'password' => 'required|min:4|confirmed'
         ]);
 
-        // Dapatkan data daripada borang untuk simpan ke dalam table users
-        $data = $request->only([
-            'name', 
-            'nric',
-            'no_staf',
-            'email', 
-            'telefon',  
-            'penempatan_id', 
-            'jawatan', 
-            'role'
-        ]);
-        // Merge kan password yang di-encrypt ke dalam array $data
-        $data['password'] = bcrypt($request->input('password'));
+        // // Dapatkan data daripada borang untuk simpan ke dalam table users
+        // $data = $request->only([
+        //     'name', 
+        //     'nric',
+        //     'no_staf',
+        //     'email', 
+        //     'telefon',  
+        //     'penempatan_id', 
+        //     'jawatan', 
+        //     'role'
+        // ]);
+        // // Merge kan password yang di-encrypt ke dalam array $data
+        // $data['password'] = bcrypt($request->input('password'));
 
         // Simpan $data ke dalam table users
-        DB::table('users')->insert($data);
+        // DB::table('users')->insert($data);
+        $data = $request->all();
+        User::create($data);
 
         // Beri respon redirect ke halaman senarai users
         return redirect('/pentadbir/users');
