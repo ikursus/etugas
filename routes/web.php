@@ -10,7 +10,10 @@ Route::get('/', function() {
  * Prefix routing adalah: /pengguna
  *  
  */
-Route::group(['prefix' => 'pengguna', 'middleware' => 'auth'], function () {
+Route::group([
+    'prefix' => 'pengguna', 
+    'middleware' => 'auth'
+], function () {
 
     // Routing untuk dashboard pengguna
     Route::get('dashboard', function () {
@@ -25,7 +28,12 @@ Route::group(['prefix' => 'pengguna', 'middleware' => 'auth'], function () {
  * Prefix routing adalah: /pentadbir
  *  
  */
-Route::group(['prefix' => 'pentadbir', 'middleware' => 'auth'], function () {
+Route::group([
+    'prefix' => 'pentadbir', 
+    'middleware' => ['auth', 'pentadbir.only'],
+    'namespace'  => 'Pentadbir',
+    'as' => 'pentadbir.'
+], function () {
 
     // Routing untuk root address /pentadbir
     Route::get('/', function() {
@@ -38,13 +46,17 @@ Route::group(['prefix' => 'pentadbir', 'middleware' => 'auth'], function () {
     });
 
     // Routing pentadbir untuk pengurusan users (senarai, tambah,edit,delete)
-    Route::get('users', 'UserController@index');
-    Route::get('users/create', 'UserController@create');
-    Route::post('users/create', 'UserController@store');
-    Route::get('users/{id}/edit', 'UserController@edit');
+    Route::get('users', 'UserController@index')->name('users.index');
+    Route::get('users/tambah', 'UserController@create')->name('users.create');
+    Route::post('users/create', 'UserController@store')->name('users.store');
+    Route::get('users/{id}/edit', 'UserController@edit')->name('users.edit');
     Route::patch('users/{id}/edit', 'UserController@update');
-    Route::delete('users/{id}', 'UserController@destroy');
+    Route::delete('users/{id}', 'UserController@destroy')->name('users.destroy');
     // Route::resource('UserController');
+    // Route untuk laporan pengguna
+
+    Route::resource('laporan', 'LaporanController')->only(['index', 'create', 'store', 'show', 'destroy']);
+    Route::get('export/laporan/', 'ExportLaporanController@export')->name('export.laporan');
 });
 
 

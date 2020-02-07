@@ -14,6 +14,8 @@
                         </div>
                     @endif
 
+                    @include('layouts/alerts')
+
                     You are logged in!
                 </div>
             </div>

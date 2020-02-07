@@ -16,7 +16,7 @@
     @include('layouts.alerts')
 
     <p>
-        <a href="/pentadbir/users/create" class="btn btn-primary">
+        <a href="{{ route('pentadbir.users.create') }}" class="btn btn-primary">
             Tambah User
         </a>
     </p>
@@ -43,7 +43,7 @@
                 <td>{{ $user->jawatan }}</td>
                 <td>{{ $user->penempatan_id }}</td>
                 <td>
-                    <a href="/pentadbir/users/{{ $user->id }}/edit" class="btn btn-info">
+                    <a href="{{ route('pentadbir.users.edit', $user->id) }}" class="btn btn-info">
                         EDIT
                     </a>
 
@@ -56,7 +56,7 @@
                     <div class="modal fade" id="modal-delete-{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
 
-                            <form method="POST" action="/pentadbir/users/{{ $user->id }}">
+                            <form method="POST" action="{{ route('pentadbir.users.destroy', $user->id) }}">
                                 @csrf
                                 @method('DELETE')
                                     <div class="modal-content">
