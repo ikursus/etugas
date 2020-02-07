@@ -437,6 +437,7 @@ class ComposerStaticInitf2ca234cf5d3959db70863351765cb0d
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Laporan' => __DIR__ . '/../..' . '/app/Laporan.php',
+        'App\\LaporanDetail' => __DIR__ . '/../..' . '/app/LaporanDetail.php',
         'App\\Perkara' => __DIR__ . '/../..' . '/app/Perkara.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',

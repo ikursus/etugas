@@ -15,9 +15,9 @@ class CreateLaporansTable extends Migration
     {
         Schema::create('laporans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('perkara_id')->unsigned()->nullable();
-            $table->string('tandakan')->nullable();
-            $table->text('catatan')->nullable();
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('penempatan_id')->unsigned();
+            $table->text('catatan_tambahan')->nullable();
             $table->timestamps();
         });
     }

@@ -18,7 +18,7 @@ class UsersTableSeeder extends Seeder
             'no_staf' => '1234',
             'email' => 'ali@gmail.com',
             'telefon' => '0123456789',
-            'penempatan_id' => null,
+            'penempatan_id' => 1,
             'jawatan' => 'PPT',
             'password' => bcrypt('ali'),
             'role' => 'pentadbir'
@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
             'no_staf' => '1235',
             'email' => 'upin@gmail.com',
             'telefon' => '0123456789',
-            'penempatan_id' => null,
+            'penempatan_id' => 1,
             'jawatan' => 'PPT',
             'password' => bcrypt('upin'),
             'role' => 'pengguna'
@@ -44,7 +44,7 @@ class UsersTableSeeder extends Seeder
             'no_staf' => '1236',
             'email' => 'ipin@gmail.com',
             'telefon' => '0123456789',
-            'penempatan_id' => null,
+            'penempatan_id' => 2,
             'jawatan' => 'PPT',
             'password' => bcrypt('ipin'),
             'role' => 'pengguna'

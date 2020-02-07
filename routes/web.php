@@ -10,12 +10,14 @@ Route::get('/', function() {
  * Prefix routing adalah: /pengguna
  *  
  */
-Route::group(['prefix' => 'pengguna'], function () {
+Route::group(['prefix' => 'pengguna', 'middleware' => 'auth'], function () {
 
     // Routing untuk dashboard pengguna
     Route::get('dashboard', function () {
         return view('template_pengguna.dashboard');
     });
+    // Route untuk laporan pengguna
+    Route::resource('laporan', 'LaporanController')->only(['index', 'create', 'store', 'show']);
 });
 
 /*
@@ -23,7 +25,7 @@ Route::group(['prefix' => 'pengguna'], function () {
  * Prefix routing adalah: /pentadbir
  *  
  */
-Route::group(['prefix' => 'pentadbir'], function () {
+Route::group(['prefix' => 'pentadbir', 'middleware' => 'auth'], function () {
 
     // Routing untuk root address /pentadbir
     Route::get('/', function() {
