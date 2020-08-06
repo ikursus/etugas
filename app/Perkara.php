@@ -8,4 +8,6 @@ class Perkara extends Model
 {
     // Maklumat table perkara yang perlu dihubungi
     protected $table = 'perkara';
+
+    protected $fillable = ['butiran'];
 }

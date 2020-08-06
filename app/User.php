@@ -52,7 +52,7 @@ class User extends Authenticatable
 
     public function penempatan()
     {
-        return $this->belongsTo(Penempatan::class)
+        return $this->belongsTo(Penempatan::class);
     }
 
     // Semak role pengguna adakah pentadbir?

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pentadbir;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use App\Penempatan;
 use DataTables;
 
 class UserController extends Controller
@@ -16,11 +17,12 @@ class UserController extends Controller
      */
     public function datatables()
     {
-        $query = User::query();
+        $query = User::with('penempatan')
+        ->select('users.*');
 
         return DataTables::of($query)
         ->addColumn('actions', function ($item) {
-            return view('template_pengguna.template_laporan.actions', compact('item'));
+            return view('template_pentadbir.template_users.actions', compact('item'));
         })
         ->addIndexColumn()
         ->rawColumns(['actions', 'created_at'])
@@ -34,12 +36,13 @@ class UserController extends Controller
      */
     public function index() 
     {
-        return view('template_pentadbir.template_users.senarai');
+        return view('template_pentadbir.template_users.index');
     }
 
     public function create()
     {
-        return view('template_pentadbir.template_users.tambah');
+        $senarai_penempatan = Penempatan::orderBy('bahagian', 'asc')->get();
+        return view('template_pentadbir.template_users.create', compact('senarai_penempatan'));
     }
 
     public function store(Request $request)
@@ -53,39 +56,24 @@ class UserController extends Controller
             'password' => 'required|min:4|confirmed'
         ]);
 
-        // // Dapatkan data daripada borang untuk simpan ke dalam table users
-        // $data = $request->only([
-        //     'name', 
-        //     'nric',
-        //     'no_staf',
-        //     'email', 
-        //     'telefon',  
-        //     'penempatan_id', 
-        //     'jawatan', 
-        //     'role'
-        // ]);
-        // // Merge kan password yang di-encrypt ke dalam array $data
-        // $data['password'] = bcrypt($request->input('password'));
-
-        // Simpan $data ke dalam table users
-        // DB::table('users')->insert($data);
+        
         $data = $request->all();
+
         User::create($data);
 
         // Beri respon redirect ke halaman senarai users
-        return redirect('/pentadbir/users');
+        return redirect()->route('pentadbir.users.index')->with('mesej-sukses', 'Rekod berjaya ditambah');
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
-        // Dapatkan data dari table users berdasarkan $id
-        $user = DB::table('users')->where('id', '=', $id)->first();
-
         // Beri respon paparkan template edit user beserta rekod $user
-        return view('template_pentadbir.template_users.edit', compact('user'));
+        $senarai_penempatan = Penempatan::orderBy('bahagian', 'asc')->get();
+
+        return view('template_pentadbir.template_users.edit', compact('user', 'senarai_penempatan'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
         // Validasi data dari borang
         $request->validate([
@@ -95,36 +83,27 @@ class UserController extends Controller
         ]);
 
         // Dapatkan data daripada borang untuk simpan ke dalam table users
-        $data = $request->only([
-            'name', 
-            'nric',
-            'no_staf',
-            'email', 
-            'telefon',  
-            'penempatan_id', 
-            'jawatan', 
-            'role'
-        ]);
+        $data = $request->except('password');
         // Merge kan password yang di-encrypt ke dalam array $data
         // jika password tidak kosong (iaitu diisi dengan password baru)
-        if (!empty($request->input('password')))
+        if (!empty($request->input('password')) && !is_null($request->input('password')))
         {
-            $data['password'] = bcrypt($request->input('password'));
+            $data['password'] = $request->input('password');
         }
         
         // Simpan $data ke dalam table users berdasarkan ID
-        DB::table('users')->where('id', '=', $id)->update($data);
+        $user->update($data);
 
         // Beri respon redirect ke halaman senarai users
-        return redirect('/pentadbir/users')->with('mesej-sukses', 'Rekod telah berjaya dikemaskini!');
+        return redirect()->route('pentadbir.users.index')->with('mesej-sukses', 'Rekod telah berjaya dikemaskini!');
     }
 
-    public function destroy($id)
+    public function destroy(User $user)
     {
         // Dapatkan rekod yang ingin dihapuskan dan hapuskan ia
-        DB::table('users')->where('id', '=', $id)->delete();
+        $user->delete();
 
         // Beri respon redirect ke halaman senarai users
-        return redirect('/pentadbir/users')->with('mesej-sukses', 'Rekod telah berjaya dihapuskan!');
+        return redirect()->route('pentadbir.users.index')->with('mesej-sukses', 'Rekod telah berjaya dihapuskan!');
     }
 }

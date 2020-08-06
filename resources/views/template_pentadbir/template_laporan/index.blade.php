@@ -30,10 +30,12 @@
         <div class="col-4">
             <select name="year" class="form-control">
                 <option value="">-- Sila Pilih Tahun --</option>
-                <option value="2019">2019</option>
                 <option value="2020">2020</option>
                 <option value="2021">2021</option>
                 <option value="2022">2022</option>
+                <option value="2023">2023</option>
+                <option value="2024">2024</option>
+                <option value="2025">2025</option>
             </select>
         </div>
         
@@ -45,6 +47,14 @@
                 <option value="02">Feb</option>
                 <option value="03">Mac</option>
                 <option value="04">Apr</option>
+                <option value="05">Mei</option>
+                <option value="06">Jun</option>
+                <option value="07">Jul</option>
+                <option value="08">Ogo</option>
+                <option value="09">Sep</option>
+                <option value="10">Okt</option>
+                <option value="11">Nov</option>
+                <option value="12">Dis</option>
             </select>
             
         </div>

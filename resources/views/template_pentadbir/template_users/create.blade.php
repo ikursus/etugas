@@ -11,7 +11,7 @@
 
                     @include('layouts/alerts')
 
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ route('pentadbir.users.store') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -88,7 +88,12 @@
                             <label for="penempatan_id" class="col-md-4 col-form-label text-md-right">{{ __('Penempatan') }}</label>
 
                             <div class="col-md-6">
-                                <input id="penempatan_id" type="text" class="form-control @error('penempatan_id') is-invalid @enderror" name="penempatan_id" value="{{ old('penempatan_id') }}" required autocomplete="penempatan_id" autofocus>
+                                <select id="penempatan_id" class="form-control @error('penempatan_id') is-invalid @enderror" name="penempatan_id" required autocomplete="penempatan_id" autofocus>
+                                    <option value="">-- Sila Pilih --</option>
+                                    @foreach($senarai_penempatan as $penempatan)
+                                    <option value="{{ $penempatan->id }}">{{ $penempatan->bahagian }}</option>
+                                    @endforeach
+                                </select>
 
                                 @error('penempatan_id')
                                     <span class="invalid-feedback" role="alert">

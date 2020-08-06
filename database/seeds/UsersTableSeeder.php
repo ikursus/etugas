@@ -31,7 +31,7 @@ class UsersTableSeeder extends Seeder
             'no_staf' => '1235',
             'email' => 'pengguna@etugas.test',
             'telefon' => '0123456789',
-            'penempatan_id' => 1,
+            'penempatan_id' => 2,
             'jawatan' => 'PPT',
             'password' => bcrypt('pengguna'),
             'role' => 'pengguna'

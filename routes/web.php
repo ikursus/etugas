@@ -55,17 +55,16 @@ Route::group([
         return view('template_pentadbir.dashboard');
     })->name('dashboard');
 
-    // Routing pentadbir untuk pengurusan users (senarai, tambah,edit,delete)
-    Route::post('users/datatables', 'UserController@datatables');
+    Route::post('users/datatables', 'UserController@datatables')->name('users.datatables');
     Route::resource('users', 'UserController');
-    // Route untuk laporan pengguna
 
     Route::get('laporan/export', 'ExportLaporanController@export')->name('export.laporan');
-    Route::post('laporan/datatables', 'LaporanController@datatables')->name('export.laporan');
+    Route::resource('laporan', 'LaporanController');
 
-    Route::resource('laporan', 'LaporanController')->only(['index', 'create', 'store', 'show', 'destroy']);
 
-    Route::resource('penempatan', 'PenempatanController')->only(['index', 'create', 'store', 'show', 'destroy']);
+    Route::post('penempatan/datatables', 'PenempatanController@datatables')->name('penempatan.datatables');
+    Route::resource('penempatan', 'PenempatanController');
 
-    Route::resource('perkara', 'PerkaraController')->only(['index', 'create', 'store', 'show', 'destroy']);
+    Route::post('perkara/datatables', 'PerkaraController@datatables')->name('perkara.datatables');
+    Route::resource('perkara', 'PerkaraController');
 });

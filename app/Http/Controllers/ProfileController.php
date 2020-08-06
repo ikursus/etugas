@@ -30,7 +30,7 @@ class ProfileController extends Controller
 
     	if (!empty($request->input('password')) && !is_null($request->input('password')))
     	{
-    		$data['password'] = bcrypt($request->input('password'));
+    		$data['password'] = $request->input('password');
     	}
 
     	auth()->user()->update($data);

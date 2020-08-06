@@ -5,13 +5,13 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Edit Pengguna') }}</div>
+                <div class="card-header">{{ __('Daftar Pengguna') }}</div>
 
                 <div class="card-body">
 
                     @include('layouts/alerts')
 
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ route('pentadbir.users.update', $user->id) }}">
                         @csrf
                         @method('PATCH')
 
@@ -89,7 +89,12 @@
                             <label for="penempatan_id" class="col-md-4 col-form-label text-md-right">{{ __('Penempatan') }}</label>
 
                             <div class="col-md-6">
-                                <input id="penempatan_id" type="text" class="form-control @error('penempatan_id') is-invalid @enderror" name="penempatan_id" value="{{ $user->penempatan_id }}" required autocomplete="penempatan_id" autofocus>
+                                <select id="penempatan_id" class="form-control @error('penempatan_id') is-invalid @enderror" name="penempatan_id" required autocomplete="penempatan_id" autofocus>
+                                    <option value="">-- Sila Pilih --</option>
+                                    @foreach($senarai_penempatan as $penempatan)
+                                    <option value="{{ $penempatan->id }}"{{ $user->penempatan_id == $penempatan->id ? ' selected="selected"' : null }}>{{ $penempatan->bahagian }}</option>
+                                    @endforeach
+                                </select>
 
                                 @error('penempatan_id')
                                     <span class="invalid-feedback" role="alert">
@@ -117,7 +122,8 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password">
+                                <span>Biarkan kosong jika tiada perubahan</span>
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -133,8 +139,8 @@
                             <div class="col-md-6">
                                 <select name="role" class="form-control">
                                     <option value="">-- Sila Pilih --</option>
-                                    <option value="pentadbir"{{ $user->role == 'pentadbir' ? ' selected' : null }}>Pentadbir</option>
-                                    <option value="pengguna"{{ $user->role == 'pengguna' ? ' selected' : null }}>Pengguna</option>
+                                    <option value="pentadbir" {{ $user->role == 'pentadbir' ? 'selected="selected"' : null }}>Pentadbir</option>
+                                    <option value="pengguna" {{ $user->role == 'pengguna' ? 'selected="selected"' : null }}>Pengguna</option>
                                 </select>
 
                                 @error('role')
@@ -148,7 +154,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Simpan') }}
+                                    {{ __('Kemaskini') }}
                                 </button>
                             </div>
                         </div>
