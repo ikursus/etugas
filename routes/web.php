@@ -1,9 +1,14 @@
 <?php
 
+// Halaman utama sebelum login
 Route::get('/', function() {
-    
-    return view('welcome');
+    // return view('welcome');
+    return redirect()->route('login');
 });
+// Route untuk authentication
+Auth::routes(['register' => false]);
+// Route untuk home page selepas login
+Route::get('/home', 'HomeController@index')->name('home');
 
 /*
  * Senarai routing untuk bahagian pengguna / user biasa
@@ -58,8 +63,3 @@ Route::group([
     Route::resource('laporan', 'LaporanController')->only(['index', 'create', 'store', 'show', 'destroy']);
     Route::get('export/laporan/', 'ExportLaporanController@export')->name('export.laporan');
 });
-
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
