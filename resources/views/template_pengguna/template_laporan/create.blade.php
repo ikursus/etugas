@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('Daftar Pengguna') }}</div>
+                <div class="card-header">{{ __('Daftar Pegawai Bertugas') }} - {{ auth()->user()->name }}</div>
 
                 <div class="card-body">
 

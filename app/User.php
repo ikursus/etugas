@@ -50,6 +50,11 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($value);
     }
 
+    public function penempatan()
+    {
+        return $this->belongsTo(Penempatan::class)
+    }
+
     // Semak role pengguna adakah pentadbir?
     public function isPentadbir()
     {

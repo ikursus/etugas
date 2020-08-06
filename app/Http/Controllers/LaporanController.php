@@ -6,9 +6,31 @@ use App\Laporan;
 use App\LaporanDetail;
 use App\Perkara;
 use Illuminate\Http\Request;
+use DataTables;
 
 class LaporanController extends Controller
 {
+    /**
+     * Datatables of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function datatables()
+    {
+        $query = Laporan::with('user')
+        ->with('penempatan')
+        ->where('laporans.user_id', '=', auth()->user()->id)
+        ->select('laporans.*');
+
+        return DataTables::of($query)
+        ->addColumn('actions', function ($item) {
+            return view('template_pengguna.template_laporan.actions', compact('item'));
+        })
+        ->addIndexColumn()
+        ->rawColumns(['actions', 'created_at'])
+        ->make(true);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,13 +38,7 @@ class LaporanController extends Controller
      */
     public function index()
     {
-        // Cara nak dapatkan butiran user yg tengah login
-        // $loggedUser = Auth::user(); // kena set use Auth;
-        $loggedUser = auth()->user();
-
-        $senarai_laporan = Laporan::where('user_id', '=', $loggedUser->id)->paginate(10);
-
-        return view('template_pengguna.template_laporan.index', compact('senarai_laporan'));
+        return view('template_pengguna.template_laporan.index');
     }
 
     /**
@@ -69,7 +85,7 @@ class LaporanController extends Controller
             ]);
         }
 
-        return redirect()->route('laporan.index')->with('mesej-sukses', 'Laporan berjaya dikirimkan!');
+        return redirect()->route('laporan.index')->with('mesej-sukses', 'Laporan Pegawai Bertugas berjaya dihantar!');
         
     }
 

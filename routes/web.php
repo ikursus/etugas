@@ -16,7 +16,6 @@ Route::get('/home', 'HomeController@index')->name('home');
  *  
  */
 Route::group([
-    'prefix' => 'pengguna', 
     'middleware' => 'auth'
 ], function () {
 
@@ -24,8 +23,14 @@ Route::group([
     Route::get('dashboard', function () {
         return view('template_pengguna.dashboard');
     });
+
     // Route untuk laporan pengguna
+    Route::post('laporan/datatables', 'LaporanController@datatables')->name('laporan.datatables');
     Route::resource('laporan', 'LaporanController')->only(['index', 'create', 'store', 'show']);
+
+    // Route untuk kemaskini profile
+    Route::get('profile', 'ProfileController@edit')->name('profile.edit');
+    Route::patch('profile', 'ProfileController@update')->name('profile.update');
 });
 
 /*
@@ -48,18 +53,19 @@ Route::group([
     // Routing untuk dashboard pentadbir
     Route::get('dashboard', function () {
         return view('template_pentadbir.dashboard');
-    });
+    })->name('dashboard');
 
     // Routing pentadbir untuk pengurusan users (senarai, tambah,edit,delete)
-    Route::get('users', 'UserController@index')->name('users.index');
-    Route::get('users/tambah', 'UserController@create')->name('users.create');
-    Route::post('users/create', 'UserController@store')->name('users.store');
-    Route::get('users/{id}/edit', 'UserController@edit')->name('users.edit');
-    Route::patch('users/{id}/edit', 'UserController@update');
-    Route::delete('users/{id}', 'UserController@destroy')->name('users.destroy');
-    // Route::resource('UserController');
+    Route::post('users/datatables', 'UserController@datatables');
+    Route::resource('users', 'UserController');
     // Route untuk laporan pengguna
 
+    Route::get('laporan/export', 'ExportLaporanController@export')->name('export.laporan');
+    Route::post('laporan/datatables', 'LaporanController@datatables')->name('export.laporan');
+
     Route::resource('laporan', 'LaporanController')->only(['index', 'create', 'store', 'show', 'destroy']);
-    Route::get('export/laporan/', 'ExportLaporanController@export')->name('export.laporan');
+
+    Route::resource('penempatan', 'PenempatanController')->only(['index', 'create', 'store', 'show', 'destroy']);
+
+    Route::resource('perkara', 'PerkaraController')->only(['index', 'create', 'store', 'show', 'destroy']);
 });

@@ -4,33 +4,37 @@ namespace App\Http\Controllers\Pentadbir;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use DB;
 use App\User;
+use DataTables;
 
 class UserController extends Controller
 {
+    /**
+     * Datatables of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function datatables()
+    {
+        $query = User::query();
+
+        return DataTables::of($query)
+        ->addColumn('actions', function ($item) {
+            return view('template_pengguna.template_laporan.actions', compact('item'));
+        })
+        ->addIndexColumn()
+        ->rawColumns(['actions', 'created_at'])
+        ->make(true);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index() 
     {
-        // Dapatkan data senarai users
-        // $senarai_users = [
-        //     ['id' => 1, 'name' => 'Ali', 'username' => 'ali', 'email' => 'ali@gmail.com'],
-        //     ['id' => 2, 'name' => 'Abu', 'username' => 'abu', 'email' => 'abu@gmail.com'],
-        //     ['id' => 3, 'name' => 'Ahmad', 'username' => 'ahmad', 'email' => 'ahmad@gmail.com'],
-        // ];
-        // Ambil senarai data users dari table users
-        $senarai_users = DB::table('users')
-        //->where('role', '=', 'pentadbir')
-        //->get();
-        ->orderBy('id', 'desc')
-        ->paginate(2);
-
-        $page_title = '<h1>Senarai Users</h1>';
-
-        // Beri respon paparkan template senarai.php dan attachkan variable $users
-        // return view('template_pentadbir.template_users.senarai', ['senarai_users' => $senarai_users, 'page_title' => $page_title]);
-        // return view('template_pentadbir.template_users.senarai')->with('senarai_users', $senarai_users)->with('page_title', $page_title);
-        return view('template_pentadbir.template_users.senarai', 
-        compact('senarai_users', 'page_title'));
+        return view('template_pentadbir.template_users.senarai');
     }
 
     public function create()
